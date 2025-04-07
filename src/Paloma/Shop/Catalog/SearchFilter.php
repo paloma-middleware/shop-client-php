@@ -12,10 +12,7 @@ class SearchFilter implements SearchFilterInterface
 
     private ?float $lessThan;
 
-    /**
-     * @var string  one of 'any', 'all', 'none' (default: 'any')
-     */
-    private string $match = 'any';
+    private ?string $match;
 
     private ?SearchFilter $or;
 
@@ -31,7 +28,7 @@ class SearchFilter implements SearchFilterInterface
                                 array $values = [],
                                 float $greaterThan = null,
                                 float $lessThan = null,
-                                string $match = 'any',
+                                string $match = null,
                                 SearchFilter $or = null)
     {
         $this->name = $name;
@@ -62,7 +59,7 @@ class SearchFilter implements SearchFilterInterface
         return $this->lessThan;
     }
 
-    function getMatch(): string
+    function getMatch(): ?string
     {
         return $this->match;
     }

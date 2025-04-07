@@ -16,12 +16,19 @@ interface SearchFilterInterface
     function getValues(): array;
 
     /**
-     * @return float Greater-than or equal to. Only applicable for numeric filter values.
+     * @return float|null Greater-than or equal to. Only applicable for numeric filter values.
      */
     function getGreaterThan(): ?float;
 
     /**
-     * @return float Less-than or equal to. Only applicable for numeric filter values.
+     * @return float|null Less-than or equal to. Only applicable for numeric filter values.
      */
     function getLessThan(): ?float;
+
+    /**
+     * @return string|null one of 'any', 'all', 'none' (default: 'any')
+     */
+    function getMatch(): ?string;
+
+    function getOr(): ?SearchFilter;
 }

@@ -42,12 +42,7 @@ class Catalog implements CatalogInterface
                 'page' => max(0, $searchRequest->getPage()),
                 'size' => min(100, $searchRequest->getSize()),
                 'filters' => array_map(function(SearchFilterInterface $filter) {
-                        return [
-                            'property' => $filter->getName(), // Filter name can be used here
-                            'values' => array_values($filter->getValues()),
-                            'greaterThan' => $filter->getGreaterThan(),
-                            'lessThan' => $filter->getLessThan(),
-                        ];
+                        return $this->normalizeSearchFilter($filter);
                     }, $searchRequest->getFilters()),
                 'filterAggregates' => $searchRequest->isIncludeFilterAggregates(),
                 'sort' => $searchRequest->getSort(),
@@ -235,5 +230,21 @@ class Catalog implements CatalogInterface
         $context = $this->contextProvider->provide();
 
         return $context ? $context->toArray() : null;
+    }
+
+    /**
+     * @param SearchFilterInterface $filter
+     * @return array
+     */
+    function normalizeSearchFilter(SearchFilterInterface $filter): array
+    {
+        return [
+            'property' => $filter->getName(), // Filter name can be used here
+            'values' => array_values($filter->getValues()),
+            'greaterThan' => $filter->getGreaterThan(),
+            'lessThan' => $filter->getLessThan(),
+            'match' => $filter->getMatch(),
+            'or' => ($filter->getOr() ? $this->normalizeSearchFilter($filter->getOr()) : null),
+        ];
     }
 }
