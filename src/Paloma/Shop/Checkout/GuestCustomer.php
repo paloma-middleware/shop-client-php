@@ -117,4 +117,9 @@ class GuestCustomer implements CustomerInterface
     {
         return [];
     }
+
+    function getCustomData(): array
+    {
+        return [];
+    }
 }
