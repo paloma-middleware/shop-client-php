@@ -25,4 +25,9 @@ interface CustomerInterface extends CustomerBasicsInterface
      * @return string[] The customer's assigned price groups
      */
     function getPriceGroups(): array;
+
+    /**
+     * @return array key-value pairs of custom data.
+     */
+    function getCustomData(): array;
 }

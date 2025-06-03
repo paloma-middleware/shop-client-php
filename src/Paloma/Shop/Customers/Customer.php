@@ -60,4 +60,12 @@ class Customer extends CustomerBasics implements CustomerInterface, MetadataCont
     {
         return $this->data['priceGroups'] ?? [];
     }
+
+    /**
+     * @inheritDoc
+     */
+    function getCustomData(): array
+    {
+        return $this->data['customData'] ?? [];
+    }
 }
